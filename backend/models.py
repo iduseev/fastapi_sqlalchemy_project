@@ -13,7 +13,7 @@ class User(BaseModel):
     email: Optional[EmailStr] = Field(None, example="johndoe@example.com")
 
 
-class People(BaseModel):
+class Person(BaseModel):
     fname: str = Field(..., example="Tooth")
     lname: str = Field(..., example="Fairy")
     timestamp: str = Field(..., example="2022-10-08 09:15:10")
