@@ -9,9 +9,9 @@ from fastapi import FastAPI, Path, Body, Query, HTTPException, status, Request, 
 from fastapi.responses import JSONResponse, HTMLResponse
 from fastapi.templating import Jinja2Templates
 
-from mock_data import DEFAULT_PERSON, PEOPLE
-from models import Person, Message, Error
 from utils import utils
+from .mock_data import DEFAULT_PERSON, PEOPLE
+from .models import Person, Message, Error
 
 
 # extract environmental variables from .env file
@@ -40,9 +40,9 @@ async def read_root(request: Request) -> HTMLResponse:
 )
 async def show_people(
     request: Request,
-    limit: int = Query(default=10, example=10)
+    limit: int = Query(default=10, examples=[10])
 ) -> List[Person]:
-    return list(PEOPLE.values)
+    return [PEOPLE.values()]
 
 
 @app.post(
@@ -55,7 +55,7 @@ async def show_people(
 )
 async def create_person(
     request: Request,
-    person: Person = Body(..., title="New person information", example=DEFAULT_PERSON),
+    person: Person = Body(..., title="New person information", examples=[DEFAULT_PERSON]),
 ) -> Person | NoReturn:
     fname = person.fname
     lname = person.lname
@@ -83,7 +83,7 @@ async def create_person(
 )
 async def read_person(
     request: Request,
-    lname: str = Path(..., title="Required last name", example="Fairy")
+    lname: str = Path(..., title="Required last name", examples=["Fairy"])
 ) -> Person | NoReturn:
     if lname in PEOPLE:
         return PEOPLE[lname]
@@ -106,8 +106,8 @@ async def read_person(
 )
 async def update_person(
     request: Request,
-    lname: str = Path(..., title="Required last name", example="Fairy"),
-    person: Person = Body(..., title="Person data to be updated", example=DEFAULT_PERSON)
+    lname: str = Path(..., title="Required last name", examples=["Fairy"]),
+    person: Person = Body(..., title="Person data to be updated", examples=[DEFAULT_PERSON])
 ) -> Message | NoReturn:
     if lname in PEOPLE:
         PEOPLE[lname]["fname"] = person.fname
@@ -134,7 +134,7 @@ async def update_person(
 )
 async def delete_person(
     request: Request,
-    lname: str = Path(..., title="Required last name", example="Fairy"),
+    lname: str = Path(..., title="Required last name", examples=["Fairy"]),
 ) -> Message | JSONResponse:
     if lname in PEOPLE:
         del PEOPLE[lname]
