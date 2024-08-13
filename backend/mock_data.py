@@ -1,12 +1,6 @@
 # backend/mock_data.py
 
-from datetime import datetime
-
 from .models import Person
-
-
-def get_timestamp():
-    return datetime.now().strftime(("%Y-%m-%d %H:%M:%S"))
 
 
 DEFAULT_PERSON = {
@@ -19,16 +13,16 @@ PEOPLE = {
     "Fairy": Person(
         fname="Tooth",
         lname="Fairy",
-        timestamp=get_timestamp()
+        timestamp="2022-10-08 10:15:10"
     ),
     "Ruprecht": Person(
         fname="Knecht",
         lname="Ruprecht",
-        timestamp=get_timestamp()
+        timestamp="2022-10-08 11:15:10"
     ),
     "Bunny": Person(
         fname="Easter",
         lname="Bunny",
-        timestamp=get_timestamp()
+        timestamp="2022-10-08 12:15:10"
     ),
 }
