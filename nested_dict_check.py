@@ -10,6 +10,11 @@ tariff = {
     'cost': {
         'year_1': {
             'RUB': 50000
+        },
+    },
+    'nocost': {
+        'whutchuwunt?': {
+            'USD': 30000
         }
     }
 }
@@ -28,3 +33,12 @@ if __name__ == '__main__':
     except KeyError as e:
         tb = traceback.format_exc()
         pprint(f'Exception: {e}, traceback: {tb}')
+
+    for k, v in tariff.items():
+        pprint(f"k: {k}, v: {v}", indent=3)
+        try:
+            cost = v[period][user['currency']]
+            pprint(f"cost: {cost}")
+        except KeyError as e:
+            tb = traceback.format_exc()
+            pprint(f'Exception: {e}, traceback: {tb}')
